@@ -9,6 +9,8 @@ git clone https://github.com/pedr0ni/open-control.git
 ```
 
 ```
+npm init
+
 npm install electron@1.6.1 --save
 
 npm install jsonfile-promised --save
