@@ -6,10 +6,11 @@
         <title>Painel de Controle</title>
         <link rel="stylesheet" href="../../assets/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="../../assets/css/materialize.min.css"/>
+        <link rel="stylesheet" href="../../assets/css/fontawesome-all.min.css"/>
 
     </head>
 
-    <body>
+    <body style="background-color: white !important;">
 
         <nav>
             <div class="nav-wrapper">
@@ -17,6 +18,7 @@
                     <li><a>Home</a></li>
                     <li><a>Vendas</a></li>
                     <li><a>Produtos</a></li>
+                    <li><a>Clientes</a></li>
                     <li><a>Funcionários</a></li>
                 </ul>
             </div>
@@ -28,15 +30,87 @@
 
         <div class="row">
             <div class="col-md-3">
-                <div class="card blue-grey darken-1">
+                <div class="card teal">
                     <div class="card-content white-text">
-                        <span class="card-title"><strong>Vendas</strong></span>
-                        <p>R$ 500,00</p>
+                        <span class="card-title"><strong><span id="label-vendas">R$ 0</span></strong></span>
+                        <p>Vendas</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card indigo darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title"><strong><span id="label-produtos">0</span></strong></span>
+                        <p>Produtos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card amber darken-4">
+                    <div class="card-content white-text">
+                        <span class="card-title"><strong><span id="label-clientes">0</span></strong></span>
+                        <p>Clientes</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card purple darken-2">
+                    <div class="card-content white-text">
+                        <span class="card-title"><strong><span id="label-funcionarios">0</span></strong></span>
+                        <p>Funcionários</p>
                     </div>
                 </div>
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card blue-grey lighten-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Últimas Vendas</span>
+                        <table class="responsive-table">
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Produto</th>
+                                    <th>Quantidade</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="table-vendas">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card blue-grey lighten-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Pouco Estoque</span>
+                        <table class="responsive-table">
+                            <thead>
+                                <tr>
+                                    <th>#ID</th>
+                                    <th>Produto</th>
+                                    <th>Quantidade</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>#1</td>
+                                    <td>Eclair</td>
+                                    <td>5</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </body>
     <script src="dashboard.js"></script>
