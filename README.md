@@ -25,6 +25,10 @@ npm install mysql --save
 npm start
 ```
 
+## Screenshots
+
+![Dashboard](https://image.prntscr.com/image/dQ1rcZjiQBaF8aMCWVtK4g.png)
+
 ## Built With
 
 * [Electron](https://electronjs.org/)
