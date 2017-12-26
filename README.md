@@ -16,6 +16,8 @@ npm install electron@1.6.1 --save
 npm install jsonfile-promised --save
 
 npm install mysql --save
+
+npm install electron-notify --save
 ```
 
 
