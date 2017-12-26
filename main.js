@@ -1,11 +1,14 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const data = require('./app/modules/data/data');
+var eNotify = null;
 
 console.log("[INFO] Aplicativo inicializando...");
 var start = Date.now();
 
-app.on('ready', () => {
+var mainWindow = null;
 
+app.on('ready', () => {
+    eNotify = require('electron-notify');
     var ready = Date.now() - start;
     console.log("[INFO] Aplicativo iniciado em " + ready + "ms.");
 
@@ -22,6 +25,12 @@ app.on('ready', () => {
 
     setTimeout(function () {
 
+        mainWindow = new BrowserWindow({
+            width: 1280,
+            height: 720,
+            resizable: false,
+            maximizable: false
+        });
 
         if (data.exist()) {
             //Manda para o Dashboard
@@ -29,32 +38,31 @@ app.on('ready', () => {
             data.read()
                 .then((obj) => {
                     console.log("[INFO] Logado como " + obj.email);
+                    eNotify.notify({
+                        title: "Open-Control",
+                        text: "Você está acessando o sistema como " + obj.email,
+                        image: __dirname + "/app/assets/images/success.png"
+                    });
                 }).catch((err) => {
                     console.log(err);
                 });
 
-            let dashboardWindow = new BrowserWindow({
-                width: 1280,
-                height: 720,
-                resizable: false,
-                maximizable: false
-            });
 
-            dashboardWindow.loadURL(`file://${__dirname}/app/viewers/dashboard/dashboard.html`);
+
+            mainWindow.loadURL(`file://${__dirname}/app/viewers/dashboard/dashboard.html`);
 
         } else {
-            let welcomeWindow = new BrowserWindow({
-                width: 1280,
-                height: 720,
-                resizable: false,
-                maximizable: false
-            });
 
-            welcomeWindow.loadURL(`file://${__dirname}/app/viewers/welcome/welcome.html`);
+            mainWindow.loadURL(`file://${__dirname}/app/viewers/welcome/welcome.html`);
         }
 
+        mainWindow.on('closed', () => {
+            mainWindow.destroy();
+            mainWindow = null;
+        });
 
         loaderWindow.destroy();
+        loaderWindow = null;
 
     }, 2250);
 
@@ -63,5 +71,10 @@ app.on('ready', () => {
 ipcMain.on('login', (event, email) => {
     console.log("[INFO] Logando como " + email);
     data.save(email);
-    manager.setLogged(email);
+    eNotify.notify({
+        title: "Open-Control",
+        text: "Você efetuou login como " + email,
+        image: __dirname + "/app/assets/images/success.png"
+    });
+    mainWindow.loadURL(`file://${__dirname}/app/viewers/dashboard/dashboard.html`);
 });

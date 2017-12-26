@@ -11,30 +11,33 @@ mysql.db().query("SELECT id,total FROM vendas", function(error, results, fields)
     document.querySelector("#label-vendas").textContent = "R$ " + total;
 });
 
-mysql.db().query("SELECT id FROM produtos", function(error, results, fields) {
+mysql.db().query("SELECT COUNT(clientes.id) as res FROM clientes UNION SELECT COUNT(produtos.id) FROM produtos UNION SELECT COUNT(funcionarios.id) FROM funcionarios", function(error, results, fields) {
     if (error) throw error;
-    document.querySelector("#label-produtos").textContent = results.length;
+    document.querySelector("#label-clientes").textContent = results[0].res;
+    document.querySelector("#label-produtos").textContent = results[1].res;
+    document.querySelector("#label-funcionarios").textContent = results[2].res;
 });
 
-mysql.db().query("SELECT id FROM clientes", function(error, results, fields) {
-    if (error) throw error;
-    document.querySelector("#label-clientes").textContent = results.length;
-});
+let table_vendas = document.querySelector("#table-vendas");
 
-mysql.db().query("SELECT id FROM funcionarios", function(error, results, fields) {
-    if (error) throw error;
-    document.querySelector("#label-funcionarios").textContent = results.length;
-});
-
-var table_vendas = document.querySelector("#table-vendas");
-
-mysql.db().query("SELECT *,clientes.nome as cl_nome,produtos.nome as pr_nome  FROM vendas INNER JOIN clientes ON vendas.cliente_id = clientes.id INNER JOIN produtos ON vendas.produto_id = produtos.id", function(error, results, fields) {
+mysql.db().query("SELECT vendas.quantidade,vendas.total,clientes.nome AS cl_nome,produtos.nome AS pr_nome FROM vendas INNER JOIN clientes ON vendas.cliente_id = clientes.id INNER JOIN produtos ON vendas.produto_id = produtos.id", function(error, results, fields) {
     if (error) throw error;
     var rows = "";
     for (var i = 0; i < results.length; i++) {
-        rows+="<tr><td>"+results[i].cl_nome+"</td><td>"+results[i].pr_nome+"</td><td>"+results[i].quantidade+"</td><td>"+results[i].total+"</td></tr>";
+        rows += "<tr><td>"+results[i].cl_nome+"</td><td>"+results[i].pr_nome+"</td><td>"+results[i].quantidade+"</td><td>"+results[i].total+"</td></tr>";
     }
     table_vendas.innerHTML = rows;
+});
+
+var table_estoque = document.querySelector("#table-estoque");
+
+mysql.db().query("SELECT id,nome,quantidade FROM produtos WHERE quantidade <= 5 ORDER BY quantidade DESC", function(error, results, fields) {
+    if (error) throw error;
+    var rows = "";
+    for (var i = 0; i < results.length; i++) {
+        rows += "<tr><td>#"+results[i].id+"</td><td>"+results[i].nome+"</td><td>"+results[i].quantidade+"</td></tr>";
+    }
+    table_estoque.innerHTML = rows;
 });
 
 data.read()
@@ -45,8 +48,4 @@ data.read()
     });
 
 
-window.onload = function() {
-
-
-
-};
+window.onload = function() {};
