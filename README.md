@@ -2,7 +2,11 @@
 
 Sistema para gerenciamento de estoque aberto e completo
 
-### Installing
+## MySQL
+
+Database will be released soon :]
+
+## Installing
 
 ```
 git clone https://github.com/pedr0ni/open-control.git
