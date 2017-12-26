@@ -40,6 +40,10 @@ npm start
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
+## Icons
+
+* [IconFinder](https://www.iconfinder.com/iconsets/gradient-ui-1)
+
 ## Authors
 
 * **Matheus Pedroni** - [Pedr0ni](https://github.com/pedr0ni)
